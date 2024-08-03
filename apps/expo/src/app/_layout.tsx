@@ -1,7 +1,6 @@
 import "@bacons/text-decoder/install";
 
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 
 import { TRPCProvider } from "~/utils/api";
@@ -19,16 +18,16 @@ export default function RootLayout() {
           It also allows you to configure your screens 
         */}
       <Stack
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#f472b6",
-          },
-          contentStyle: {
-            backgroundColor: colorScheme == "dark" ? "#09090B" : "#FFFFFF",
-          },
-        }}
+      // screenOptions={{
+      //   headerStyle: {
+      //     backgroundColor: "#f472b6",
+      //   },
+      //   contentStyle: {
+      //     backgroundColor: colorScheme == "dark" ? "#09090B" : "#FFFFFF",
+      //   },
+      // }}
       />
-      <StatusBar />
+      {/* <StatusBar /> */}
     </TRPCProvider>
   );
 }
