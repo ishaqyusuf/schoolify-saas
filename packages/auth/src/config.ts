@@ -10,6 +10,7 @@ import Discord from "next-auth/providers/discord";
 import { db } from "@acme/db/client";
 import { Account, Session, User } from "@acme/db/schema";
 
+// import { Account, Session, User } from "../../db/dist/schema/example-schema";
 import { env } from "../env";
 
 declare module "next-auth" {
@@ -19,7 +20,6 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 }
-
 const adapter = DrizzleAdapter(db, {
   usersTable: User,
   accountsTable: Account,

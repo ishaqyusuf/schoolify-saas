@@ -5,7 +5,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@/fonts": ["./src/fonts"]
     },
     "plugins": [{ "name": "next" }],
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",

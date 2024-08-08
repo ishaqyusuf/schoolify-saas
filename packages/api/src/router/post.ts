@@ -9,6 +9,9 @@ import { protectedProcedure, publicProcedure } from "../trpc";
 export const postRouter = {
   all: publicProcedure.query(({ ctx }) => {
     // return ctx.db.select().from(schema.post).orderBy(desc(schema.post.id));
+    // ctx.db.insert(Account,).values({
+    //   type: ''
+    // })
     return ctx.db.query.Post.findMany({
       orderBy: desc(Post.id),
       limit: 10,
@@ -22,10 +25,13 @@ export const postRouter = {
       //   .select()
       //   .from(schema.post)
       //   .where(eq(schema.post.id, input.id));
-
-      return ctx.db.query.Post.findFirst({
-        where: eq(Post.id, input.id),
+      return ctx.db.query.Post.findMany({
+        limit: 10,
+        // where: {},
       });
+      // return ctx.db.query.Post.findFirst({
+      //   where: eq(Post.id, input.id),
+      // });
     }),
 
   create: protectedProcedure
