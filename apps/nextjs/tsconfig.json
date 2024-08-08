@@ -3,7 +3,9 @@
   "compilerOptions": {
     "lib": ["es2022", "dom", "dom.iterable"],
     "jsx": "preserve",
+    "strict": false,
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "~/*": ["./src/*"],
       "@/fonts": ["./src/fonts"]

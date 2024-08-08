@@ -2,6 +2,7 @@ export {
   Account,
   Session,
   User,
+  Post,
   AccountRelations,
   CreatePostSchema,
   SessionRelations,

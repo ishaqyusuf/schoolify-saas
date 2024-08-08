@@ -11,9 +11,9 @@ export interface IClassResult {
   results: {
     studentName: string;
     subjects: { name: string; score: number }[];
-    totalObtained: number;
-    position: number;
-    quran: {
+    totalObtained?: number;
+    position?: number;
+    quran?: {
       title: string;
       mark: string;
     }[];
@@ -83,7 +83,6 @@ export default function useDataTransform() {
         return {
           ..._resp,
           results: _resp.results.map((r) => {
-            const position = 1;
             const tops = _resp.results.filter(
               (res) => res.totalObtained > r.totalObtained,
             ).length;
@@ -156,7 +155,6 @@ export default function useDataTransform() {
       cl.results = cl.results.map((res) => {
         let name = res.studentName;
         const spl = name.split(" ").filter(Boolean);
-        let calibrigraphed = false;
         name = spl
           .map((s) => {
             const cal = configs.caligraphs[s];
@@ -165,7 +163,6 @@ export default function useDataTransform() {
                 uncals.push(s);
               }
             } else {
-              calibrigraphed = true;
             }
             const ret = cal ? cal : s;
             return ret;
