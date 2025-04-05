@@ -9,7 +9,11 @@ export interface IClassResult {
   subjects: string[];
   pageSize: "full" | "half2" | "half";
   results: {
+    rawName: string;
     studentName: string;
+    firstName: string;
+    otherName: string;
+    surname: string;
     subjects: { name: string; score: number }[];
     totalObtained?: number;
     position?: number;
@@ -23,6 +27,7 @@ export default function useDataTransform() {
   const [data, setData] = useState<IClassResult[]>([]);
   const [showClass, setShowClass] = useState("");
   const [showInput, setShowInput] = useState("");
+  const [showNames, setShowNames] = useState("");
   useEffect(() => {
     setData(() => {
       return _data.map((d) => {
@@ -46,13 +51,26 @@ export default function useDataTransform() {
           } else {
             _resp.totalStudents += 1;
             let totalScore = 0;
+            const studentName = spl[0]?.split("-").splice(-1)[0];
+            const dotted = studentName.includes(".");
+            const splter = dotted ? "." : " ";
+            const [firstName, ...restName] = studentName
+              .split(splter)
+              .map((s) => s.trim())
+              .filter(Boolean);
+            const surname = dotted ? restName[0] : restName.join(" ");
+            const otherName = dotted ? restName[1] : null;
             let quran = null;
             _resp.results.push({
-              studentName: spl[0]?.split("-").splice(-1)[0],
+              rawName: studentName,
+              studentName,
+              firstName,
+              surname,
+              otherName,
               subjects: subjects
                 .map((s, i) => {
                   const scoreCol = spl[i + 1];
-                  if (scoreCol?.includes(";")) {
+                  if (scoreCol && scoreCol.includes(";")) {
                     const [s1, s2, s3] = scoreCol.split(";");
                     const total = [s1, s2, s3]
                       .map((s) => Number(s))
@@ -105,7 +123,7 @@ export default function useDataTransform() {
         }
         return true;
       })
-      .map((da) => {
+      .map((da, i) => {
         return {
           ...da,
           results: da.results
@@ -114,6 +132,14 @@ export default function useDataTransform() {
                 r.totalObtained > 0 &&
                 r.subjects.filter((s) => s.score > 0).length > 1,
             )
+            // .filter((r) => da.className == "الأول التمهيدي ا")
+            // .filter((r) =>
+            //   !showNames
+            //     ? [`يوسف عبد الواسع`,`يسرى لقمان`]
+            //         // .split(",")
+            //         .some((rs) => compareArabicNames(rs, r.rawName))
+            //     : true,
+            // )
             .sort(
               sortBy == "name"
                 ? (a, b) => a.studentName.localeCompare(b.studentName, ["ar"])
@@ -123,6 +149,7 @@ export default function useDataTransform() {
             ),
         };
       });
+    // [].includes
   }
   function col(title, value, cols) {
     return { title, value, cols };
@@ -172,15 +199,12 @@ export default function useDataTransform() {
         return {
           ...res,
           studentName: name,
+          rawName: res.studentName,
         };
       });
       return cl;
     });
-    console.log(
-      Array.from(
-        new Set(uncals.filter((s) => !s?.includes("ــــــــــ"))),
-      ).sort((a, b) => a.localeCompare(b, ["ar"])),
-    );
+
     return resp;
   }
   return {
@@ -190,6 +214,8 @@ export default function useDataTransform() {
     setShowInput,
     showClass,
     setShowClass,
+    showNames,
+    setShowNames,
     filtered,
     header: [
       col("العام الدراسي", "1445/1446هـ", 4),
@@ -216,7 +242,20 @@ export default function useDataTransform() {
     enToAr,
   };
 }
+function normalizeArabicName(name) {
+  // Normalize the name by removing diacritics
+  return name
+    .normalize("NFKD") // Decompose combined characters (NFKD normalization)
+    .replace(/[\u064B-\u065F]/g, "") // Remove Arabic diacritics (Tashkeel)
+    .trim(); // Remove extra whitespace
+}
 
+function compareArabicNames(name1, name2) {
+  const normalized1 = normalizeArabicName(name1);
+  const normalized2 = normalizeArabicName(name2);
+
+  return normalized1 === normalized2;
+}
 interface RenProps {
   result?;
   fasl?;

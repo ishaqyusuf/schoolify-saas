@@ -3,7 +3,6 @@ import { Button } from "@acme/ui/button";
 
 export async function AuthShowcase() {
   const session = await auth();
-
   if (!session) {
     return (
       <form>

@@ -64,6 +64,11 @@ export default function ExamResult() {
           value={tran.showInput}
           onChange={(e) => tran.setShowInput(e.target.value)}
         />
+        <input
+          className="flex-1 border p-1"
+          value={tran.showNames}
+          onChange={(e) => tran.setShowNames(e.target.value)}
+        />
       </div>
       {tran.filtered().map((data, i) => {
         const isFull = data.pageSize == "full";

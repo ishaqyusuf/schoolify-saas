@@ -14,8 +14,8 @@ export const Student = pgTable("student", {
   id: __uuidPri,
   schoolId: _uuidRel("schoolId", School.id),
   firstName: varchar("first_name", { length: 256 }).notNull(),
-  middleName: varchar("middle_name", { length: 256 }),
-  lastName: varchar("last_name", { length: 256 }).notNull(),
+  otherName: varchar("other_name", { length: 256 }),
+  surname: varchar("surname", { length: 256 }).notNull(),
   guardianId: _uuidRel("guardianId", Guardian.id, false),
   ...timeStamps,
 });

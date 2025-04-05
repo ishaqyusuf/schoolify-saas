@@ -7,30 +7,23 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "next-env.d.ts",
-        ".expo/**",
-        ".output/**",
-        ".vercel/output/**"
-      ]
+      "outputs": [".cache/tsbuildinfo.json", "dist/**"]
     },
     "dev": {
-      "persistent": true,
-      "cache": false
+      "cache": false,
+      "persistent": false
     },
     "format": {
-      "outputs": ["node_modules/.cache/.prettiercache"],
+      "outputs": [".cache/.prettiercache"],
       "outputLogs": "new-only"
     },
     "lint": {
       "dependsOn": ["^topo", "^build"],
-      "outputs": ["node_modules/.cache/.eslintcache"]
+      "outputs": [".cache/.eslintcache"]
     },
     "typecheck": {
       "dependsOn": ["^topo", "^build"],
-      "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+      "outputs": [".cache/tsbuildinfo.json"]
     },
     "clean": {
       "cache": false
@@ -53,14 +46,19 @@
   },
   "globalEnv": [
     "POSTGRES_URL",
+    "LOG_LEVEL",
+    "LOG_CHANNEL",
+    "NEXT_PUBLIC_ROOT_DOMAIN",
     "AUTH_DISCORD_ID",
     "AUTH_DISCORD_SECRET",
     "AUTH_REDIRECT_PROXY_URL",
+    "TELEGRAM_TOKEN",
     "AUTH_SECRET",
     "PORT"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",
+    "NEXT_PUBLIC_ROOT_DOMAIN",
     "CI",
     "VERCEL",
     "VERCEL_ENV",

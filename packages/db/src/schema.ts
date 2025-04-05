@@ -2,21 +2,23 @@ export {
   Account,
   Session,
   User,
-  Post,
   AccountRelations,
-  CreatePostSchema,
   SessionRelations,
   UserRelations,
-} from "./example-schema";
+} from "./schema/example-schema";
 export {
   School,
   AcademicClass,
+  CreateSchoolSchema,
   AcademicSession,
   AcademicTerm,
-} from "./school-schema";
+  ClassSubject,
+  SessionClass,
+  Subjects,
+} from "./schema/school-schema";
 export {
   CreateStudentSchema,
   Student,
   StudentSessionForm,
   Guardian,
-} from "./student-schema";
+} from "./schema/student-schema";

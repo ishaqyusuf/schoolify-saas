@@ -2,17 +2,20 @@
 // classes,
 
 import { integer, jsonb, pgTable, varchar } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 import { __uuidPri, _uuidRel, timeStamps } from "./schema-helper";
 
 export const School = pgTable("school", {
   id: __uuidPri,
   name: varchar("name", { length: 256 }).notNull(),
+  slug: varchar("name", { length: 256 }).notNull().unique(),
   meta: jsonb("meta").$type<{
     id: string;
   }>(),
   ...timeStamps,
 });
+export const CreateSchoolSchema = createInsertSchema(School, {});
 export const AcademicSession = pgTable("academic_session", {
   id: __uuidPri,
   name: varchar("name", { length: 256 }).notNull(),

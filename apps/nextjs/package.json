@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm with-env next build",
     "clean": "git clean -xdf .next .turbo node_modules",
-    "dev": "pnpm with-env next dev --port 4001",
+    "dev": "pnpm with-env next dev --port 4002",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
     "start": "pnpm with-env next start",
@@ -26,7 +26,7 @@
     "@trpc/server": "11.0.0-rc.364",
     "geist": "^1.3.0",
     "google": "link:next/font/google",
-    "next": "^14.2.3",
+    "next": "^14.2.7",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "superjson": "2.2.1",
